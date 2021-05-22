@@ -1,0 +1,21 @@
+#blocked_users{
+    padding: 10px;
+}
+
+#blocked_users table{
+    background: #F8A100;
+    padding: 10px;
+}
+
+#blocked_users tbody tr{
+    margin: 10px;
+    background: #FFDB99;
+}
+
+#blocked_users thead{
+    text-align: center;
+}
+
+#blocked_users td{
+    padding: 10px;
+}

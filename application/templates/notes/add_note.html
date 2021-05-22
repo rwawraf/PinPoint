@@ -1,0 +1,33 @@
+<!--
+korzysta z szablonu base.html
+zmienia jedynie jeden blok
+-->
+{% extends "base.html" %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/notes_style.css') }}"
+      xmlns="http://www.w3.org/1999/html"/>
+{% endblock %}
+
+{% block title %}Add note{% endblock %}
+
+{% block content %}
+<div id="add_note">
+    <form method="POST">
+
+        <div class="form-group">
+            <label for="noteContent">Treść notatki</label>
+                <textarea
+                        class="form-control"
+                        id="noteContent"
+                        name="noteContent"
+                        rows="4"
+                        cols="50"
+                ></textarea>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary">Dodaj notatkę!</button>
+
+    </form>
+</div>
+{% endblock %}

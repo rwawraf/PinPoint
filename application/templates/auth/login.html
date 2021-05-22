@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/login_style.css') }}"/>
+{% endblock %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div id="log">
+	<form id="login" method="POST">
+		<div>
+			<label for="email">Adres email</label>
+			<input
+					type="email"
+					class="form-control"
+					id="email"
+					name="email"
+					placeholder="Wprowadź adres email"
+			/>
+		</div>
+		<div>
+			<label for="password">Hasło</label>
+			<input
+					type="password"
+					class="form-control"
+					id="password"
+					name="password"
+					placeholder="Podaj hasło"
+			/>
+		</div>
+		<br />
+		<button type="submit">Zaloguj się!</button><br><br>
+		<a href="/sign-up">Jeżeli nie posiadasz konta - zarejestruj się już teraz!</a>
+	</form>
+</div>
+
+{% endblock %}
+

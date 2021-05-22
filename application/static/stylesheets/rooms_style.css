@@ -1,0 +1,201 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+html{
+	position: relative;
+}
+#buttons{
+	position: relative;
+	min-height: 100px;
+	width: 100%;
+}
+.button{
+	position: relative;
+	min-height: 50px;
+	width: 50%;
+	float: left;
+	margin-top: 10px;
+	margin-left: 25% !important;
+	border-radius: 8px;
+	background-color: var(--secondary-color);
+}
+.button > p{
+	padding:15px;
+	font-size: 36px;
+	text-align: center;
+	color: var(--font-color);
+}
+#list{
+	width: 60%;
+	margin-left: 20%;
+	margin-top: 50px;
+}
+.list_table{
+	width: 100%;
+	border-collapse: collapse;
+	margin: 25px 0;
+	font-size: 0.9em;
+	font-family: sans-serif;
+	min-width: 400px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.list_table thead tr{
+	background-color: var(--secondary-color);
+	color: var(--font-color);
+	text-align: left;
+}
+.list_table th,
+.list_table td{
+	padding: 12px 15px;
+	text-align: center;
+	vertical-align: bottom;
+}
+.list_table tbody tr{
+	font-weight: bold;
+	border-bottom: 1px solid var(--secondary-color);
+}
+
+.list_table tbody tr:nth-of-type(even){
+	background-color: var(--secondary-color);
+}
+
+.list_table tbody tr:last-of-type{
+	border-bottom: 2px solid var(--font-color);
+}
+.join_button{
+	width: 80%;
+	background-color: #ffab47;
+	color: black;
+	border: 1px solid var(--secondary-color);
+	border-radius: 5px;
+}
+#join_room{
+	width: 20%;
+	height: 30px;
+	margin-left: 40%;
+	margin-top: 10px;
+	background-color: white;
+	color: var(--font-color);
+	border: 1px solid #555555;
+	border-radius: 5px;
+}
+.join_button:hover{
+	background-color: #ff8d05;
+	color: var(--font-color);
+}
+#join_room:hover{
+	background-color: #555555;
+	color: var(--font-color);
+}
+.button1{
+	position: relative;
+	padding: 16px 32px;
+	text-align: center;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	float: right;
+	background-color: white;
+	color: var(--font-color);
+	border: 5px solid #f8a100;
+}
+
+.button1:hover{
+	position: relative;
+	padding: 16px 32px;
+	text-align: center;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	background-color: #f8a100;
+	color: var(--font-color);
+}
+#password_container{
+	background-color:rgba(0,0,0,0.8);
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	z-index: 1000;
+	display: none;
+}
+#password_window{
+	position: absolute;
+	background-color: white;
+	width: 30%;
+	height: 200px;
+	margin-left: 35%;
+	margin-top: 20%;
+	border: 3px solid #1B1B1B1B;
+	border-radius: 20px;
+}
+#pass{
+	border: 1px solid black;
+	border-radius: 3px;
+	width: 60%;
+	height: 40px;
+	margin-left: 20%;
+	font-size: 26px;
+	float: left;
+}
+#X{
+	width: 30px;
+	height: 30px;
+	top: 0px;
+	right: 0px;
+	position: absolute;
+	font-size: 24px;
+	background-color: transparent;
+	background-repeat:no-repeat;
+	border: none;
+	cursor:pointer;
+	overflow: hidden;
+	outline:none;
+}
+#pass_label{
+	font-size: 28px;
+	text-align:center;
+	margin-top: 50px;
+}
+#show_pass{
+	width: 30px;
+	height: 30px;
+	margin-left: 5px;
+	margin-top: 5px;
+}
+#add_room{
+	background-color: var(--secondary-color);
+	position: relative;
+	top: 50px;
+	left: 30%;
+	height: 550px;
+	width: 40%;
+	color: var(--font-color);
+	border-radius: 10px;
+	font-size: 20px;
+	padding: 5px;
+	text-align:center;
+}
+button[type=submit]{
+	color:black !important;
+	cursor: pointer;
+	background: #ccc;
+	background: linear-gradient(#ddd 0, #eee 100%);
+	border: 1px solid #ccc;
+	line-height: 32px;
+	font-size: 20px;
+	padding: 0 25px;
+	border-radius: .25rem;
+	width: 40%;
+	height: 50px;
+	float: none;
+}
+#roomname,#password,#roomtype,#userlimit,#accesstype{
+	width: 80%;
+	margin-left: 10%;
+	resize: none;
+}

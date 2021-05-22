@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/profile_style.css') }}"/>
+{% endblock %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+    <div id="profile">
+        <div id="profile_list">
+            <table class="list_table">
+                <thead>
+                <tr>
+                    <th><img src="../images/logo.png" id="profile_photo"/></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td id="profile_name">PaweT</td>
+                </tr>
+                <tr>
+                    <th><a href="" class="profile_settings">Zmień nazwę</a></th>
+                </tr>
+                <tr>
+                    <th><a href="" class="profile_settings">Zmień hasło</a></th>
+                </tr>
+                <tr>
+                    <th><a href="" class="profile_settings">Zmień adres e-mail</a></th>
+                </tr>
+                <tr>
+                    <th><a href="" class="profile_settings">Zmień zdjęcie</a></th>
+                </tr>
+                <tr>
+                    <th id="profile_delete"><a href="" class="profile_settings" id="profile_delete">Usuń konto</a></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

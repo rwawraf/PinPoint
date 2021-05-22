@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}Chatroom{% endblock %}
+
+{% block messages %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+
+{% block styles  %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/chatroom_style.css') }}"/>
+{% endblock %}
+{% block content %}
+    <div class="row" style="padding-top:10px;" >
+        <div class="col"><hr></div>
+        <div class="col-auto"><p class="h3" align="center">Start Chatting</p></div>
+        <div class="col"><hr></div>
+    </div>
+    <div>
+        <a href="/chatroom/{{ room_id }}/leave" onclick="leaveRoom()"><button class="btn btn-danger">Wyjdź</button></a>
+    </div>
+
+    <div id="chat-container">
+        <div class="container">
+            <div id="messages" class="overflow-auto msgs" style="overflow-y: scroll; height:500px;">
+            </div>
+            <form id="msgForm" action="" method="POST" style="bottom:0; margin: 0% 0% 0% 0%;">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Message" aria-label="Message" id="msg">
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="submit" id="sendBtn">Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="chat-side">
+            <div id="room-participants-container">
+                <h5>Użytkownicy w pokoju</h5>
+                <div id="room-participants-table-container">
+                    <table id="room-participants-table">
+                    </table>
+                </div>
+            </div>
+        <div id="invite-users-container">
+            <h5>Zaproś użytkownika</h5>
+            <button class="btn btn-primary" onclick="userList()">Odśwież</button>
+            <div id="invite-users-table-container">
+                <table id="invite-users-table">
+                </table>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script type=text/javascript>
+    let users = [];
+    let participants = document.getElementById('room-participants-container');
+
+    setInterval(
+        function() {
+            updateUsers();
+            return false;
+        }, 1000);
+
+    {#function updateUsers(){#}
+    {#    $.getJSON($SCRIPT_ROOT + '/_get_participants/{{ room_id }}', {}, function (data) {#}
+    {#        if(data.length != 2*(users.length)){#}
+    {#        users = data;#}
+    {#        participants.innerHTML = '';#}
+    {#        for (let i = 0; i < 2*users.length; i+=2){#}
+    {#                let user_id = users[i];#}
+    {#                let username = users[i+1];#}
+    {#                let content = '<div class="user">' +#}
+    {#                    username +#}
+    {#                    '<button class="btn btn-primary" onclick="kickUser(' + user_id + ')">Wyrzuc</button>' +#}
+    {#                    '</div>';#}
+    {#                participants.innerHTML += content;#}
+    {#        }#}
+    {#    }#}
+    {#    });#}
+    {#}#}
+
+    function updateUsers(){
+        $.getJSON($SCRIPT_ROOT + '/_get_participants/{{ room_id }}', {}, function (data) {
+            if(data.length != (users.length)){
+                users = data;
+                participants.innerHTML = '';
+                for (let i = 0; i < users.length; i++){
+                    let username = users[i];
+                    let content = '<div class="user">' + username + '</div>';
+                    participants.innerHTML += content;
+                }
+            }
+        });
+    }
+
+    function kickUser(user_id){
+        fetch("/chatroom/{{ room_id }}/kick/" + user_id, {
+           method: "POST",
+           body: JSON.stringify({user_id: user_id, room_id: {{ room_id }} })
+        });
+    }
+
+    function leaveRoomJson(){
+        fetch("/chatroom/{{ room_id }}/leave_json", {
+            method: "POST",
+            body: JSON.stringify({room_id: {{ room_id }} }),
+        });
+    }
+
+    function enterRoom(){
+        socket.emit('event', {message: '', name: '{{ user.username }}', type: 2, room_id: {{ room_id }} });
+    }
+
+    function leaveRoom(){
+        socket.emit('event', {message: '', name: '{{ user.username }}', type: 3, room_id: {{ room_id }} });
+    }
+
+    function inviteUser(el, user_id){
+        el.disabled = true;
+        el.innerHTML = "Wysłano";
+        sendNotification(user_id);
+    }
+
+    function userList(){
+        $('#invite-users-table').html("");
+        $.getJSON($SCRIPT_ROOT + '/_get_users', {}, function (data) {
+            for(let i = 0; i < data.length; i++){
+                let content = "";
+                if(users.includes(data[i].username)){
+                    continue;
+                }else{
+                    content =   "<tr class='invite-users-table-item'><td>" +
+                                data[i].username +
+                                "</td><td><button class='btn btn-primary' onclick='inviteUser(this," +
+                                data[i].user_id +
+                                ")'>Zaproś</button></td></tr>";
+                }
+                $('#invite-users-table').append(content);
+            }
+        });
+    }
+
+
+    enterRoom();
+    updateUsers();
+    userList();
+
+    window.onbeforeunload = function (){
+        leaveRoom();
+        leaveRoomJson();
+    }
+</script>
+{% endblock %}

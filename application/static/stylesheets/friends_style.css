@@ -1,0 +1,21 @@
+#friends{
+    padding: 10px;
+}
+
+#friends table{
+    background: #F8A100;
+    padding: 10px;
+}
+
+#friends tbody tr{
+    margin: 10px;
+    background: #FFDB99;
+}
+
+#friends thead{
+    text-align: center;
+}
+
+#friends td{
+    padding: 10px;
+}

@@ -1,0 +1,10 @@
+Who else is online now
+<ul>
+    {% for key,val in online_users.items() %}
+        {% if val %}
+            {% if val != current_user %}
+                <li>{{ val.username }}</li>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</ul>

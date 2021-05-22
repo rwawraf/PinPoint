@@ -1,0 +1,73 @@
+<!--
+korzysta z szablonu base.html
+zmienia jedynie jeden blok
+-->
+{% extends "base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/rooms_style.css') }}"/>
+{% endblock %}
+
+{% block title %}Add room{% endblock %}
+
+{% block content %}
+    <div id="add_room">
+        <form method="POST">
+            <div class="form-group">
+                <label for="roomName">Nazwa</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="roomname"
+                        name="roomname"
+                        placeholder="Wprowadź nazwę pokoju"
+                />
+            </div>
+            <div class="form-group">
+                <label for="password">Hasło</label>
+                <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        name="password"
+                        placeholder="Podaj hasło"
+                />
+            </div>
+            <div class="form-group">
+                <label for="roomType">Typ pokoju</label>
+                <select
+                        class="form-control"
+                        id="roomtype"
+                        name="roomtype"
+                >
+                    <option value="Chatroom">Chatroom</option>
+                    <option value="Whiteboard">Whiteboard</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="userLimit">Limit użytkowników</label>
+                <input
+                        type="number"
+                        min="2"
+                        max="10"
+                        class="form-control"
+                        id="userlimit"
+                        name="userlimit"
+                        placeholder="2"
+                />
+            </div>
+            <div class="form-group">
+                <label for="accessType">Dostępność pokoju</label>
+                <select
+                        class="form-control"
+                        id="accesstype"
+                        name="accesstype"
+                >
+                    <option value="Publiczny">Publiczny</option>
+                    <option value="Prywatny">Prywatny</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Dodaj pokój!</button>
+        </form>
+    </div>
+{% endblock %}

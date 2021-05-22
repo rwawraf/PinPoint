@@ -1,0 +1,46 @@
+
+#user_list{
+	width: 100%;
+	float:left;
+	border-right: 3px solid var(--secondary-color);
+	color:var(--font-color);
+}
+.list_table{
+	width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 280px;
+}
+.list_table thead tr{
+    background-color: var(--secondary-color);
+    text-align: left;
+    font-size: 1.5em;
+}
+.list_table th,
+.list_table td{
+    padding: 12px 15px;
+	text-align: center;
+	vertical-align: bottom;
+}
+.list_table tbody tr{
+	font-weight: bold;
+    border-bottom: 1px solid var(--secondary-color);
+}
+.list_table tbody tr:last-of-type{
+    border-bottom: 2px solid var(--secondary-color);
+}
+#messages{
+    position: relative;
+    float: left;
+    width: 80%;
+    height: 35em;
+    filter: brightness(150%);
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+#users{
+    position: relative;
+    width: 20%;
+    float:left;
+}

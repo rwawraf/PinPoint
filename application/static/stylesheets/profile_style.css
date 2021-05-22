@@ -1,0 +1,46 @@
+
+#profile_list{
+    width: 100%;
+    float:left;
+    border: none;
+    margin-top: 5%;
+}
+.list_table{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 280px;
+}
+.list_table thead tr{
+    text-align: left;
+    font-size: 1.5em;
+}
+.list_table th,
+.list_table td{
+    padding: 12px 15px;
+    text-align: center;
+    vertical-align: bottom;
+}
+.list_table tbody tr{
+    font-weight: bold;
+
+}
+.list_table tbody tr:last-of-type{
+}
+#profile_name{
+    font-size: 1.7em;
+    padding-bottom: 50px;
+    color: black;
+}
+#profile_photo{
+    border-radius: 5em;
+}
+.profile_settings{
+    text-decoration: none;
+    color: blue;
+}
+#profile_delete{
+    padding: 70px;
+    color: red;
+}

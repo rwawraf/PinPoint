@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/sign_up_style.css') }}"/>
+{% endblock %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block content %}
+
+    <div id="reje">
+        <form id="rejestracja" method="POST">
+            <div>
+                <label for="email">Adres email</label>
+                <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        placeholder="Wprowadź adres email"
+                />
+            </div>
+            <div>
+                <label for="username">Nazwa użytkownika</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="username"
+                        name="username"
+                        placeholder="Wprowadź nazwę użytkownika"
+                />
+            </div>
+            <div>
+                <label for="password1">Hasło</label>
+                <input
+                        type="password"
+                        class="form-control"
+                        id="password1"
+                        name="password1"
+                        placeholder="Podaj hasło"
+                />
+            </div>
+            <div>
+                <label for="password2">Powtórz hasło</label>
+                <input
+                        type="password"
+                        class="form-control"
+                        id="password2"
+                        name="password2"
+                        placeholder="Powtórz hasło"
+                />
+            </div>
+            <br />
+            <button type="submit">Zarejestruj się!</button><br><br>
+            <a href="/sign-up">Jeżeli należysz do społeczności PinPoint - zaloguj się już teraz!</a>
+        </form>
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div id="buttons">
+        <a id="rooms2" href="/rooms"><div class="home_button">
+            <p>Czat</p>
+        </div></a>
+        <a id="notes2" href="/notes"><div class="home_button">
+            <p>Notatki</p>
+        </div></a>
+    </div>
+    <div id="center-text">
+        {% if user.is_authenticated %}
+            <p>Witaj na stronie głównej!</p>
+        {% else %}
+            <p>Zaloguj się aby korzystać ze wszystkich funkcji naszej strony!</p>
+        {% endif %}
+    </div>
+{% endblock %}

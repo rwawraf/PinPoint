@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/rooms_style.css') }}"/>
+{% endblock %}
+
+{% block title %}Rooms{% endblock %}
+
+{% block content %}
+
+    <div id="buttons">
+        <a href="/add-room">
+            <div class="button">
+                <p>Utwórz pokój</p>
+            </div>
+        </a>
+    </div>
+    <div id="list">
+        <table class="list_table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nazwa</th>
+                    <th>Właściciel</th>
+                    <th>Ilość osób</th>
+                    <th>Typ pokoju</th>
+                    <th>Dostęp</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for Room in all_rooms %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ Room.roomname }}</td>
+                    <td>
+                        {% for User in users %}
+                            {% if Room.owner_id == User.user_id %}
+                                {{ User.username }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% set counter= {'value': 0} %}
+                        {% for Participant in participants %}
+                            {% if Participant.room_id == Room.room_id %}
+                                {%if counter.update({'value' : counter.value + 1}) %}{% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {{ counter.value }}/{{ Room.user_limit }}
+                    </td>
+                    <td>{{ Room.roomtype }}</td>
+                    <td>{{ Room.accesstype }}</td>
+{#                    <td><button class="join_button" onclick="showJoinRoomWindow()">DOŁĄCZ</button></td>#}
+                    <td>
+                        {% if Room.user_limit > counter.value %}
+                            <a href="/chatroom/{{ Room.room_id }}/enter">DOŁĄCZ</a>
+                        {% else %}
+                            Pokój pełny
+                        {% endif %}
+                    </td>
+                    <td>
+                    {% if user.user_id == Room.owner_id %}
+                        <button type="button" class="close" onclick="deleteRoom({{ Room.room_id }})">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="password_container">
+        <div id="password_window">
+            <button id="X">x</button>
+            <p id="pass_label">Hasło:</p>
+            <input type="password" id="pass" name="pass" onkeydown = "if (event.keyCode == 13) document.getElementById('join_room').click()">
+            <button id="show_pass" onclick="showPassword()">👁️</button>
+            <button id="join_room" onclick="checkPassword()">Dołącz</button>
+        </div>
+    </div>
+
+{% endblock %}

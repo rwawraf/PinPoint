@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block styles %}
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/notes_style.css') }}"/>
+{% endblock %}
+
+{% block title %}Notes{% endblock %}
+
+{% block content %}
+
+<!-- okienko do dodawania notatek -->
+	<div id="add_note_container">
+		<div id="add_note_window">
+			<button id="X">x</button>
+			<form id=add_note>
+				<p id="note_label">Tytuł:</p>
+				<input type="text" id="note_title" name="note_title_name"><br><br>
+				<p id="note_label">Treść:</p>
+				<textarea rows="4" cols="30" id="note_contents" name="note_contents"></textarea>
+				<input type="submit" value="Dodaj notakę" id="note_submit">
+			</form>
+		</div>
+	</div>
+
+<!--
+guziczek od dodawania notatek
+zakomentowane tymczasowo elementy majace wplyw na dzialanie js'a
+-->
+	<div id="buttons">
+        <a href="/add-note">
+{#            <div class="button" id="note_button" onclick="showAddNoteWindow()">#}
+            <div class="button" id="note_button">
+                    <p>Dodaj notatkę</p>
+		    </div>
+       </a>
+	</div>
+
+<!-- tresc pojedynczej notatki -->
+	<div id="notes_container">
+		{% for Note in all_notes %}
+        {% if Note.user_id == current_user.user_id %}
+			<div class="note">
+				<button type="button" class="close" onclick="deleteNote({{ Note.note_id }})">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<p class="title">{{ Note.note_id }}</p>
+				<div class="line"></div>
+				<div class="content_container">
+					<p class="content">{{ Note.content }}</p>
+					<p class="note_date">{{ Note.creation_date }}</p>
+				</div>
+			</div>
+            {% endif %}
+		{% endfor %}
+	</div>
+
+{% endblock %}

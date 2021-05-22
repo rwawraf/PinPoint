@@ -1,0 +1,209 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+html{
+	position: relative;
+}
+#buttons{
+	position: relative;
+	min-height: 100px;
+	width: 100%;
+}
+#notes_container{
+	position: relative;
+	min-height: 400px;
+	margin-top:50px;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.note{
+	position: relative;
+	width:10%;
+	height:250px;
+	background-color: var(--secondary-color);
+	border-radius: 8px;
+	float: left;
+	margin:2.5%;
+	padding:10px;
+	color:var(--font-color);
+	text-align: center;
+	max-height: 250px;
+	max-width: 500px;
+	min-width: 250px;
+}
+.content_container{
+	width:220px;
+	height:190px;
+	margin-left:15px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.title{
+	font-size: 28px;
+	padding-bottom:3px;
+}
+.line{
+	width:230px;
+	height:5px;
+	background-color: var(--primary-color);
+	border-radius: 8px;
+}
+.content{
+	text-align: left;
+	padding-top:10px;
+}
+.button{
+	position: relative;
+	min-height: 70px;
+	width: 50%;
+	float: left;
+	margin-top: 10px;
+	margin-left: 25% !important;
+	background-color: var(--secondary-color);
+	border-radius: 8px;
+	cursor: pointer;
+}
+.button > p{
+	padding:15px;
+	font-size: 36px;
+	text-align: center;
+	color: var(--font-color);
+}
+.button1{
+	position: relative;
+	padding: 16px 32px;
+	text-align: center;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	float: right;
+	background-color: var(--primary-color);
+	color: black;
+	border: 5px solid #f8a100;
+}
+
+.button1:hover{
+	position: relative;
+	padding: 16px 32px;
+	text-align: center;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	background-color: #f8a100;
+	color: white;
+}
+#add_note_container{
+	background-color:rgba(0,0,0,0.8);
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	z-index: 1000;
+	display: none;
+}
+#add_note_window{
+	position: absolute;
+	background-color: white;
+	width: 40%;
+	height: 400px;
+	margin-left: 30%;
+	margin-top: 20%;
+	border: 3px solid #1B1B1B1B;
+	border-radius: 20px;
+}
+#note_contents, #note_title{
+	border: 1px solid black;
+	border-radius: 3px;
+	margin-left: 20%;
+	font-size: 16px;
+	float: left;
+	padding: 5px;
+}
+#note_title{
+	width: 60%;
+	height: 30px;
+}
+#note_contents{
+	width: 60%;
+	height: 200px;
+	resize: none;
+}
+#X{
+	width: 30px;
+	height: 30px;
+	top: 0px;
+	right: 0px;
+	position: absolute;
+	font-size: 24px;
+	background-color: transparent;
+	background-repeat:no-repeat;
+	border: none;
+	cursor:pointer;
+	overflow: hidden;
+	outline:none;
+}
+#note_label{
+	font-size: 22px;
+	text-align:center;
+	margin-top: 10px;
+}
+#note_submit{
+	width: 20%;
+	height: 30px;
+	margin-left: 40%;
+	margin-top: 10px;
+	background-color: white;
+	color: black;
+	border: 1px solid #555555;
+	border-radius: 5px;
+}
+#note_submit:hover{
+	background-color: #555555;
+	color: white;
+}
+.note_date{
+	font-size: 12px;
+	float: right;
+	padding: 5px;
+	margin-top: 40%;
+}
+#add_note{
+	background-color: var(--secondary-color);
+	position: relative;
+	top: 50px;
+	left: 30%;
+	height: 300px;
+	width: 40%;
+	border-radius: 10px;
+	font-size: 20px;
+	padding: 5px;
+	text-align:center;
+}
+button[type=submit]{
+	color:black !important;
+	cursor: pointer;
+	background: #ccc;
+	background: linear-gradient(#ddd 0, #eee 100%);
+	border: 1px solid #ccc;
+	line-height: 32px;
+	font-size: 20px;
+	padding: 0 25px;
+	border-radius: .25rem;
+	width: 40%;
+	height: 50px;
+	float: none;
+}
+#noteContent{
+	width: 80%;
+	margin-left: 10%;
+	resize: none;
+	background-color: #f3f3f3;
+}

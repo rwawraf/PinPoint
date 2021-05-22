@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/rooms_style.css') }}"/>
+{% endblock %}
+
+{% block title %}History{% endblock %}
+
+{% block content %}
+    <div id="buttons">
+        <a id="rooms2" href="/history/user/{{ current_user.user_id }}/messages"><div class="home_button">
+            <p>Czat</p>
+        </div></a>
+        <a id="notes2" href="/history"><div class="home_button">
+            <p>Notatki</p>
+        </div></a>
+    </div>
+    <div id="list">
+        <table class="list_table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>content</th>
+                <th>date</th>
+                <th>is_saved</th>
+                <th>user_id</th>
+                <th>room_id</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for Message in messages %}
+                <tr>
+                    <td>{{ Message.message_id }}</td>
+                    <td>{{ Message.content }}</td>
+                    <td>{{ Message.date }}</td>
+                    <td>{{ Message.is_saved }}</td>
+                    <td>{{ Message.user_id }}</td>
+                    <td>{{ Message.room_id }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

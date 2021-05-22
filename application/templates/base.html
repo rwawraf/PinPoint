@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+<html lang="pl-PL">
+	<head>
+		<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/logo.png') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/base_style.css') }}"/>
+
+        <style type="text/css">
+              /* Chat containers */
+          .container {
+              border: 2px solid #dedede;
+              background-color: #f1f1f1;
+              border-radius: 5px;
+              padding: 10px;
+              margin: 10px 0;
+          }
+
+            /* Darker chat container */
+            .darker {
+                border-color: #ccc;
+                background-color: #ddd;
+            }
+
+            /* Clear floats */
+            .container::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+
+            /* Style images */
+            .container b {
+                float: left;
+                max-width: 60px;
+                width: 100%;
+                margin-right: 20px;
+                border-radius: 50%;
+            }
+
+            /* Style the right image */
+            .container b.right {
+                float: right;
+                margin-left: 20px;
+                margin-right:0;
+            }
+
+            /* Style time text */
+            .time-right {
+                float: right;
+                color: #aaa;
+            }
+
+            /* Style time text */
+            .time-left {
+                float: left;
+                color: #999;
+            }
+
+        </style>
+
+        {% block styles %}
+        {% endblock %}
+
+        <link
+                rel="stylesheet"
+                href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+                crossorigin="anonymous"
+        />
+        <link
+                rel="stylesheet"
+                href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+                crossorigin="anonymous"
+        />
+		<meta charset="UTF-8"/>
+		<title>{% block title %}Home{% endblock %}</title>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	</head>
+    <body>
+    <div id="header">
+        <a href="/" style="text-decoration: none;">
+            <img id="banner" style="position:relative;height:200px; width:600px;outline: none;" src="../static/images/light_banner.png" contenteditable/>
+        </a>
+        {% if user.is_authenticated %}
+            <div class="menu" id="menu_id">
+            <a id="logout" href="/logout"><button class="btn btn-light">Wyloguj</button></a>
+            <a id="rooms" href="/rooms"><button class="btn btn-light">Pokoje</button></a>
+            <a id="friends" href="/friends"><button class="btn btn-light">Lista znajomych</button></a>
+            <a id="online" href="/online-users"><button class="btn btn-light">Użytkownicy online</button></a>
+            <a id="friends" href="/history"><button class="btn btn-light">Historia</button></a>
+            <a id="notes" href="/notes"><button class="btn btn-light">Notatki</button></a>
+            <a id="home" href="/"><button class="btn btn-light">Strona główna</button></a>
+            {% if current_user.has_role('admin') %}
+                <a id="admin" href="/admin"><button class="btn btn-light">Panel administratorski</button></a>
+            {% endif %}
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="menuFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        {% else %}
+            <div class="menu" id="menu_id">
+                <a id="login" href="/login"><button class="btn btn-light">Zaloguj się</button></a>
+                <a id="signUp" href="/sign-up"><button class="btn btn-light">Zarejestruj się</button></a>
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="menuFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        {% endif %}
+        <label class="theme-switch" for="chbox"/>
+        <input id="chbox" class="l" type="checkbox" checked/>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+
+                {% if category == 'error' %}
+                    <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% else %}
+                    <div class="alert alert-success alert-dismissable fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+		<div id="content">
+			{% block content %}
+			{% endblock %}
+		</div>
+
+        {% if user.is_authenticated %}
+            <div class="notification-container"></div>
+        {% endif %}
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+                integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+                crossOrigin="anonymous"></script>
+		<script
+				type="text/javascript"
+				src="{{ url_for('static', filename='index.js') }}"
+		></script>
+        <script
+                type="text/javascript"
+                src="{{ url_for('static', filename='socketio.js') }}"
+        ></script>
+        <script type=text/javascript>
+          $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        </script>
+        <!--
+        musialem dolaczyc te skrypty tutaj
+        nie chcialo dzialac kiedy podpinalem w index.js
+        -->
+        <script>
+
+            const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+            const currentTheme = localStorage.getItem('theme');
+            const currentBanner = localStorage.getItem('banner');
+            var bannerColor = document.getElementById('banner');
+
+            if (currentTheme) {
+                document.documentElement.setAttribute('data-theme', currentTheme);
+
+                if (currentTheme === 'dark') {
+                    toggleSwitch.checked = false;
+                }
+            }
+
+            function switchTheme(e) {
+                if (e.target.checked) {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                }
+                else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            }
+
+            var x = document.querySelector('.theme-switch input[type="checkbox"]');
+            if(x){
+                toggleSwitch.addEventListener('change', switchTheme, false);
+            }
+
+            function passwordStrength() {
+                var strongRegex = new RegExp("^(?=.{14,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+                var mediumRegex = new RegExp("^(?=.{10,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+                var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+                var pwd = document.getElementById("password1");
+                var bar = document.getElementById("progress-bar");
+                if (pwd.value.length == 0) {
+                    bar.style.background = "rgb(255,255,255";
+                    bar.style.width = "0%";
+                } else if (false == enoughRegex.test(pwd.value)) {
+                    bar.style.background = "rgb(255,70,70)";
+                    bar.style.width = "25%";
+                } else if (strongRegex.test(pwd.value)) {
+                    bar.style.background = "rgb(70,255,70)";
+                    bar.style.width = "100%";
+                } else if (mediumRegex.test(pwd.value)) {
+                    bar.style.background = "rgb(255,255,90)";
+                    bar.style.width = "75%";
+                } else {
+                    bar.style.background = "rgb(255,170,50)";
+                    bar.style.width = "50%";
+                }
+            }
+
+            function secondPasswordCheck() {
+                var pwd = document.getElementById("password1");
+                var pwd2 = document.getElementById("password2");
+                if (pwd2.value.length == 0){
+                    pwd2.style.background = "rgb(255,255,255)";
+                }else if (pwd.value == pwd2.value) {
+                    pwd2.style.background = "rgb(150,255,150)";
+                }else{
+                    pwd2.style.background = "rgb(255,150,150)";
+                }
+            }
+
+            function menuFunction() {
+                var x = document.getElementById("menu_id");
+                if (x.className === "menu") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "menu";
+                }
+            }
+
+            window.onload = async function () {
+                var msgs = await loadMessages();
+                for (i = 0; i < msgs.length; i++) {
+                    scroll = false;
+                    if (i == msgs.length - 1) {
+                        scroll = true;
+                    }
+                    addMessages(msgs[i], scroll);
+                }
+
+                let name = await loadName();
+                if (name != "") {
+                    $("#login").hide();
+                } else {
+                    $("#logout").hide();
+                }
+            };
+        </script>
+
+    {% block scripts %}
+    {% endblock %}
+	</body>
+</html>

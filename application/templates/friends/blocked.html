@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+{% block title %}Znajomi{% endblock %}
+
+{% block styles %}
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/blocked_style.css') }}"/>
+{% endblock %}
+
+{% block content %}
+    <a id="friends" href="/friends"><button class="header_button">Znajomi</button></a>
+    <div id="blocked_users_cont">
+                <div id="blocked_users">
+                    <h5>Zablokowani użytkownicy:</h5>
+                <table>
+                    <thead>
+                    <tr>
+                        <td>Nazwa użytkownika</td>
+                        <td>Akcja</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for UserRelation in all_relations %}
+                            {% if UserRelation.related_user_id == current_user.user_id %}
+                                {% if UserRelation.status == 3%}
+                                    <tr>
+                                    <td>{{ UserRelation.relating_user.username }}</td>
+                                    <td>Akcja</td>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                </div>
+    </div>
+{% endblock %}
