@@ -8,7 +8,7 @@ socket.on("connect", async function () {
             connect: true,
         });
     }
-    var form = $("form#msgForm").on("submit", async function (e) {
+    var form = $("form#sendBtn").on("click", async function (e) {
         e.preventDefault();
 
         // get input from message box

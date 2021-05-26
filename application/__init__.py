@@ -1,4 +1,5 @@
-from os import path
+from os import path, environ
+from dotenv import load_dotenv
 from flask import Flask, flash, redirect, url_for
 from flask_login import LoginManager
 from flask_security import Security, SQLAlchemyUserDatastore, current_user
@@ -9,6 +10,8 @@ from flask_admin.contrib.sqla import ModelView
 
 from .models import *
 
+basedir = path.abspath(path.dirname(__file__))
+load_dotenv(path.join(basedir, '../.env'))
 
 # inicjalizacja flaska
 def create_app():
