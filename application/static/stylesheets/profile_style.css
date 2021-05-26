@@ -30,9 +30,16 @@
 }
 #profile_name{
     font-size: 1.7em;
+    color: black;
+}
+
+#profile_email{
+    font-size: 1.3em;
+    font-weight: lighter;
     padding-bottom: 50px;
     color: black;
 }
+
 #profile_photo{
     border-radius: 5em;
 }

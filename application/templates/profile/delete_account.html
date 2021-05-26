@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Delete account{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h5>Czy jesteś pewien, że chcesz usunąć konto?</h5>
+        <p>Tej operacji nie da się odwrócić.</p>
+        <a href="/profile">Wróć do profilu</a>
+        <div>
+            <form class="form" method="post">
+                <div class="form-group">
+                    <button class="btn btn-danger">Usuń konto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

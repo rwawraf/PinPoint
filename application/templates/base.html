@@ -82,15 +82,16 @@
         </a>
         {% if user.is_authenticated %}
             <div class="menu" id="menu_id">
-            <a id="logout" href="/logout"><button class="btn btn-light">Wyloguj</button></a>
-            <a id="rooms" href="/rooms"><button class="btn btn-light">Pokoje</button></a>
-            <a id="friends" href="/friends"><button class="btn btn-light">Lista znajomych</button></a>
-            <a id="online" href="/online-users"><button class="btn btn-light">Użytkownicy online</button></a>
-            <a id="friends" href="/history"><button class="btn btn-light">Historia</button></a>
-            <a id="notes" href="/notes"><button class="btn btn-light">Notatki</button></a>
-            <a id="home" href="/"><button class="btn btn-light">Strona główna</button></a>
+            <a id="logout" href="/logout"><button class="btn btn-menu">Wyloguj</button></a>
+            <a id="notes" href="/profile"><button class="btn btn-menu">Profil</button></a>
+            <a id="rooms" href="/rooms"><button class="btn btn-menu">Pokoje</button></a>
+            <a id="friends" href="/friends"><button class="btn btn-menu">Lista znajomych</button></a>
+            <a id="online" href="/online-users"><button class="btn btn-menu">Użytkownicy online</button></a>
+            <a id="friends" href="/history"><button class="btn btn-menu">Historia</button></a>
+            <a id="notes" href="/notes"><button class="btn btn-menu">Notatki</button></a>
+            <a id="home" href="/"><button class="btn btn-menu">Strona główna</button></a>
             {% if current_user.has_role('admin') %}
-                <a id="admin" href="/admin"><button class="btn btn-light">Panel administratorski</button></a>
+                <a id="admin" href="/admin"><button class="btn btn-menu">Panel administratorski</button></a>
             {% endif %}
             </div>
             <a href="javascript:void(0);" class="icon" onclick="menuFunction()">

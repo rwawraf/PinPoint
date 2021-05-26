@@ -26,10 +26,13 @@
         <div class="col-auto"><p class="h3" align="center">Start Chatting</p></div>
         <div class="col"><hr></div>
     </div>
-    <div>
-        <a href="/chatroom/{{ room_id }}/leave" onclick="leaveRoom()"><button class="btn btn-danger">Wyjdź</button></a>
+    <div class="row">
+        <div class="col"></div>
+        <div>
+             <button class="btn btn-danger" onclick="leaveRoomJson(); leaveRoom();">Wyjdź</button>
+        </div>
+        <div class="col"></div>
     </div>
-
     <div id="chat-container">
         <div class="container">
             <div id="messages" class="overflow-auto msgs" style="overflow-y: scroll; height:500px;">
@@ -38,7 +41,7 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Message" aria-label="Message" id="msg">
                     <div class="input-group-append">
-                        <button class="btn btn-success" type="click" id="sendBtn">Send</button>
+                        <button class="btn btn-success" type="submit" id="sendBtn">Send</button>
                     </div>
                 </div>
             </form>
@@ -48,12 +51,19 @@
                 <h5>Użytkownicy w pokoju</h5>
                 <div id="room-participants-table-container">
                     <table id="room-participants-table">
+                        <tbody id="room-participants">
+
+                        </tbody>
                     </table>
                 </div>
             </div>
         <div id="invite-users-container">
             <h5>Zaproś użytkownika</h5>
-            <button class="btn btn-primary" onclick="userList()">Odśwież</button>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary" onclick="userList()">Odśwież</button>
+                </div>
+            </div>
             <div id="invite-users-table-container">
                 <table id="invite-users-table">
                 </table>
@@ -67,14 +77,13 @@
 
 {% block scripts %}
 <script type=text/javascript>
-    let users = [];
-    let participants = document.getElementById('room-participants-container');
 
-    setInterval(
-        function() {
-            updateUsers();
-            return false;
-        }, 1000);
+    socket.on("message response", function (msg) {
+        addMessages(msg, true);
+    });
+
+    let users = [];
+    let participants = document.getElementById('room-participants');
 
     {#function updateUsers(){#}
     {#    $.getJSON($SCRIPT_ROOT + '/_get_participants/{{ room_id }}', {}, function (data) {#}
@@ -92,21 +101,8 @@
     {#        }#}
     {#    }#}
     {#    });#}
-    {#}#}
 
-    function updateUsers(){
-        $.getJSON($SCRIPT_ROOT + '/_get_participants/{{ room_id }}', {}, function (data) {
-            if(data.length != (users.length)){
-                users = data;
-                participants.innerHTML = '';
-                for (let i = 0; i < users.length; i++){
-                    let username = users[i];
-                    let content = '<div class="user">' + username + '</div>';
-                    participants.innerHTML += content;
-                }
-            }
-        });
-    }
+
 
     function kickUser(user_id){
         fetch("/chatroom/{{ room_id }}/kick/" + user_id, {
@@ -123,12 +119,19 @@
     }
 
     function enterRoom(){
+        socket.emit('updateUsers', { room_id: {{ room_id }} });
         socket.emit('event', {message: '', name: '{{ user.username }}', type: 2, room_id: {{ room_id }} });
+        userList();
     }
 
     function leaveRoom(){
+        socket.emit('updateUsers', { room_id: {{ room_id }} });
         socket.emit('event', {message: '', name: '{{ user.username }}', type: 3, room_id: {{ room_id }} });
+        setTimeout(function (){
+            window.location.href = "/chatroom/{{ room_id }}/leave";
+        }, 100);
     }
+
 
     function inviteUser(el, user_id){
         el.disabled = true;
@@ -136,25 +139,24 @@
         sendNotification(user_id);
     }
 
-    function userList(){
-        $('#invite-users-table').html("");
-        $.getJSON($SCRIPT_ROOT + '/_get_users', {}, function (data) {
-            for(let i = 0; i < data.length; i++){
-                let content = "";
-                if(users.includes(data[i].username)){
-                    continue;
-                }else{
-                    content =   "<tr class='invite-users-table-item'><td>" +
-                                data[i].username +
-                                "</td><td><button class='btn btn-primary' onclick='inviteUser(this," +
-                                data[i].user_id +
-                                ")'>Zaproś</button></td></tr>";
+    socket.on("updateUsers", function (){
+        updateUsers();
+    });
+
+    function updateUsers(){
+        console.log("Updating users");
+        $.getJSON($SCRIPT_ROOT + '/_get_participants/{{ room_id }}', {}, function (data) {
+            if(data.length != (users.length)){
+                users = data;
+                participants.innerHTML = '';
+                for (let i = 0; i < users.length; i++){
+                    let username = users[i];
+                    let content = '<tr><td class="user">' + username + '<td></tr>';
+                    participants.innerHTML += content;
                 }
-                $('#invite-users-table').append(content);
             }
         });
     }
-
 
     enterRoom();
     updateUsers();

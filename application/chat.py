@@ -107,18 +107,17 @@ def leave_chatroom(room_id):
     user_id = current_user.user_id
     room_id = int(room_id)
     participant = Participant.query.filter_by(user_id=user_id, room_id=room_id).first()
-
     if participant:
         db.session.delete(participant)
         db.session.commit()
 
         session["participant"] = None
 
-        # flash('Wyjście z pokoju zakończone pomyślnie.', category='success')
-
+        # # flash('Wyjście z pokoju zakończone pomyślnie.', category='success')
         return redirect(url_for('views.rooms'))
 
-    return render_template("chat/chatroom.html", user=current_user, room_id=room_id)
+    return redirect(url_for('views.rooms'))
+    # return render_template("chat/chatroom.html", user=current_user, room_id=room_id)
 
 
 @chat.route('/chatroom/<room_id>/kick/<user_id>', methods=['GET', 'POST'])
@@ -164,6 +163,24 @@ def get_name():
 
     if current_user.is_authenticated:
         data = {"name": current_user.username}
+
+    return jsonify(data)
+
+@chat.route('/user/get-user-id')
+def get_user_id():
+    data = {"user_id": ""}
+
+    if current_user.is_authenticated:
+        data = {"user_id": current_user.user_id}
+
+    return jsonify(data)
+
+@chat.route('/user/get-picture')
+def get_picture():
+    data = {"picture": ""}
+
+    if current_user.is_authenticated:
+        data = {"picture": current_user.image_path}
 
     return jsonify(data)
 
