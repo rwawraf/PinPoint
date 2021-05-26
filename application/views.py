@@ -113,10 +113,6 @@ def get_participants_name(room_id):
 
     return jsonify(users)
 
-@views.route('/_get_users', methods=['GET', 'POST'])
-def get_users():
-    all_users = User.query.all()
-    user_list = []
 
 @views.route('/_get_users', methods=['GET', 'POST'])
 def get_users():

@@ -30,10 +30,12 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
 def show_notification(json):
     socketio.emit('notification', json)
 
+
 @socketio.on('updateUsers')
 def update_users(json):
 
     socketio.emit('updateUsers')
+
 
 # MAINLINE
 if __name__ == "__main__":  # start the web server
