@@ -58,6 +58,7 @@ html{
 
 .list_table tbody tr:nth-of-type(even){
 	background-color: var(--secondary-color);
+	color: var(--font-color);
 }
 
 .list_table tbody tr:last-of-type{

@@ -99,7 +99,9 @@ def sign_up():
             # dodaje poprawnie tych uzytkownikow, bo zostalo zainicjowane w models.py
             new_user = user_datastore.create_user(email=email,
                                                   username=username,
-                                                  password=generate_password_hash(password1, method='sha256'))
+                                                  password=generate_password_hash(password1, method='sha256'),
+                                                  image_path='/static/images/default.jpg'
+                                                  )
             db.session.add(new_user)
 
             user_role = Role.query.filter_by(name='user').first()

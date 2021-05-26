@@ -1,5 +1,4 @@
-from os import path, environ
-from dotenv import load_dotenv
+from os import path
 from flask import Flask, flash, redirect, url_for
 from flask_login import LoginManager
 from flask_security import Security, SQLAlchemyUserDatastore, current_user
@@ -7,17 +6,15 @@ from werkzeug.security import generate_password_hash
 from flask_admin import Admin
 from flask_admin import helpers as admin_helpers
 from flask_admin.contrib.sqla import ModelView
-from .models import *
 
-basedir = path.abspath(path.dirname(__file__))
-load_dotenv(path.join(basedir, '../.env'))
+from .models import *
 
 
 # inicjalizacja flaska
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('config.DevConfig')
-    # app.config.from_object('config.ProdConfig')
+    # app.config.from_object('config.DevConfig')
+    app.config.from_object('config.ProdConfig')
 
     db.init_app(app)
 
@@ -30,6 +27,7 @@ def create_app():
     from .models import User
     from .users import users
     from .friends import friends
+    from .profile import profile
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
@@ -37,6 +35,7 @@ def create_app():
     app.register_blueprint(notes, url_prefix='/')
     app.register_blueprint(users, url_prefix='/')
     app.register_blueprint(friends, url_prefix='/')
+    app.register_blueprint(profile, url_prefix='/')
 
     # zaimportuj modele z bazy danych
     # jesli jeszcze nie ma stworzonej bazy danych, to ja utworz

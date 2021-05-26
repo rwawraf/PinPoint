@@ -71,58 +71,64 @@ function menuFunction() {
 }
 
 async function addMessages(msg, scroll) {
-    if (typeof msg.name !== "undefined") {
-        var date = dateNow();
+    let room_id = await loadRoom();
+    if(room_id == msg.room_id){
 
-        if (typeof msg.time !== "undefined") {
-            var n = msg.time;
-        } else {
-            var n = date;
-        }
-        var global_name = await loadName();
-        var content;
+        if (typeof msg.name !== "undefined") {
+            let date = dateNow();
+            let n;
+            if (typeof msg.time !== "undefined") {
+                n = msg.time;
+            } else {
+                n = date;
+            }
+            let global_name = await loadName();
+            let content;
 
-        if(msg.type == 1){
-            if (global_name == msg.name) {
-            content =
-                '<div class="container darker">' +
-                '<b style="color:#000" class="left">' +
-                msg.name +
-                "</b><p>" +
-                msg.message +
-                '</p><span class="time-left">' +
-                n +
-                "</span></div>";
-            }else{
+            if(msg.type == 1){
+                if (global_name == msg.name) {
                 content =
-                    '<div class="container">' +
-                    '<b style="color:#000" class="right">' +
+                    '<div class="container darker">' +
+                    '<img src=' + msg.picture + ' style="width: 32px; height: 32px; border-radius: 50%;"/>' +
+                    '<b style="color:#000" class="left">' +
                     msg.name +
                     "</b><p>" +
                     msg.message +
-                    '</p><span class="time-right">' +
+                    '</p><span class="time-left">' +
                     n +
                     "</span></div>";
+                }else{
+                    content =
+                        '<div class="container">' +
+                        '<img src=' + msg.picture + ' style="width: 32px; height: 32px; border-radius: 50%;" class="right"/>' +
+                        '<b style="color:#000" class="right">' +
+                        msg.name +
+                        "</b><p>" +
+                        msg.message +
+                        '</p><span class="time-right">' +
+                        n +
+                        "</span></div>";
+                }
             }
-        }
-        if(msg.type == 2){
-            content =   '<div class="user_joined">' +
-                        '<p>' + msg.name + ' dołączył do pokoju</p>' +
-                        '</div>';
+            if(msg.type == 2){
+                content =   '<div class="user_joined">' +
+                            '<p>' + msg.name + ' dołączył do pokoju</p>' +
+                            '</div>';
+            }
+
+            if(msg.type == 3){
+                content =   '<div class="user_left">' +
+                            '<p>' + msg.name + ' wyszedł z pokoju</p>' +
+                            '</div>';
+            }
+            // update div
+            let messageDiv = document.getElementById("messages");
+            messageDiv.innerHTML += content;
         }
 
-        if(msg.type == 3){
-            content =   '<div class="user_left">' +
-                        '<p>' + msg.name + ' wyszedł z pokoju</p>' +
-                        '</div>';
+        if (scroll) {
+            scrollSmoothToBottom("messages");
         }
-        // update div
-        var messageDiv = document.getElementById("messages");
-        messageDiv.innerHTML += content;
-    }
-
-    if (scroll) {
-        scrollSmoothToBottom("messages");
     }
 }
 
@@ -133,6 +139,16 @@ async function loadName() {
         })
         .then(function (text) {
             return text["name"];
+        });
+}
+
+async function loadPicture() {
+    return await fetch("/user/get-picture")
+        .then(async function (response) {
+            return await response.json();
+        })
+        .then(function (text) {
+            return text["picture"];
         });
 }
 
@@ -162,7 +178,6 @@ async function loadMessages() {
             return await response.json();
         })
         .then(function (text) {
-            console.log(text);
             return text;
         });
 }
@@ -218,12 +233,19 @@ async function sendNotification(user_id){
     socket.emit("notification", {sender_id: sender_id, sender_name: sender_name, receiver_id: user_id, room_id: room_id});
 }
 
+function playAudio(){
+    let audio = new Audio('/static/notification.mp3');
+    audio.volume = 0.5;
+    audio.play();
+}
+
 async function displayNotification(notification){
     let user_id = await loadUserId();
     if(notification.receiver_id == user_id){
         let content =   "<div class='notification'><div class='notification-message'> Użytkownik <span class='username'>" + notification.sender_name + "</span> zaprasza cię do pokoju!</div><div class='notification-buttons'><a ><button class='btn btn-danger' onclick='discardNotification()'>Odrzuć</button></a><a href='/chatroom/" + notification.room_id + "/enter'><button class='btn btn-success'>Akceptuj</button></a></div></div>";
         $('.notification-container').append(content);
         $('.notification-container').toggleClass('notification-visible');
+        playAudio();
     }
 
     setTimeout(function (){
@@ -241,7 +263,23 @@ function discardNotification(){
     $('.notification-container').html("");
 }
 
-
-
+function userList(){
+    $('#invite-users-table').html("");
+    $.getJSON($SCRIPT_ROOT + '/_get_users', {}, function (data) {
+        for(let i = 0; i < data.length; i++){
+            let content = "";
+            if(users.includes(data[i].username)){
+                continue;
+            }else{
+                content =   "<tr class='invite-users-table-item'><td>" +
+                            data[i].username +
+                            "</td><td><button class='btn btn-primary' onclick='inviteUser(this," +
+                            data[i].user_id +
+                            ")'>Zaproś</button></td></tr>";
+                $('#invite-users-table').append(content);
+            }
+        }
+    });
+}
 
 

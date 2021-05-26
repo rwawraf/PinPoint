@@ -11,6 +11,7 @@ basedir = path.abspath(path.dirname(__file__))
 load_dotenv(path.join(basedir, '.env'))
 
 
+
 class Config:
     SECRET_KEY = environ.get('SECRET_KEY')
     STATIC_FOLDER = 'static'
@@ -25,7 +26,7 @@ class ProdConfig(Config):
     FLASK_ENV = 'production'
     DEBUG = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:Rafal123#@localhost:5432/pinpoint_heroku_db'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:postgres@localhost:5432/pinpoint_db'
 
 
 class DevConfig(Config):

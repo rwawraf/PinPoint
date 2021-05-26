@@ -42,6 +42,7 @@ class User(db.Model, UserMixin):
     active = db.Column(db.Boolean)
     registration_date = db.Column(db.DateTime(timezone=True), default=func.now())
     is_banned = db.Column(db.Boolean, default=False)
+    image_path = db.Column(db.String())
 
     # zarejestrowanie zwiazku z inna tabela
     # aby zarejestrowac zwiazek wiele do wielu trzeba podac nazwe tabeli z "__tablename__"

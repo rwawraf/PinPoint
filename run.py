@@ -1,6 +1,8 @@
 from flask_socketio import SocketIO
 from application import create_app
 from application.chat import save_message
+from application.models import Participant
+from flask_login import current_user
 import config
 
 
@@ -26,10 +28,12 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
 
 @socketio.on('notification')
 def show_notification(json):
-    # data = dict(json)
-
     socketio.emit('notification', json)
 
+@socketio.on('updateUsers')
+def update_users(json):
+
+    socketio.emit('updateUsers')
 
 # MAINLINE
 if __name__ == "__main__":  # start the web server

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Change Profile Picture{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div>
+            <a href="/profile">Wróć do profilu</a>
+        </div>
+        <h5>Zmień zdjęcie profilowe</h5>
+        <div>
+            <form class="form" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="image-upload">Wybierz zdjęcie:</label>
+                    <input type="file" class="form-control-file" id="image-upload" name="image" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Zapisz</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

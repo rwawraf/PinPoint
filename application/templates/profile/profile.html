@@ -12,27 +12,30 @@
             <table class="list_table">
                 <thead>
                 <tr>
-                    <th><img src="../images/logo.png" id="profile_photo"/></th>
+                    <th><img src="{{ user.image_path }}" id="profile_photo"/></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td id="profile_name">PaweT</td>
+                    <td id="profile_name">{{ user.username }}</td>
                 </tr>
                 <tr>
-                    <th><a href="" class="profile_settings">Zmień nazwę</a></th>
+                    <td id="profile_email">{{ user.email }}</td>
                 </tr>
                 <tr>
-                    <th><a href="" class="profile_settings">Zmień hasło</a></th>
+                    <th><a href="/profile/change-username" class="profile_settings">Zmień nazwę</a></th>
                 </tr>
                 <tr>
-                    <th><a href="" class="profile_settings">Zmień adres e-mail</a></th>
+                    <th><a href="/profile/change-password" class="profile_settings">Zmień hasło</a></th>
                 </tr>
                 <tr>
-                    <th><a href="" class="profile_settings">Zmień zdjęcie</a></th>
+                    <th><a href="/profile/change-email" class="profile_settings">Zmień adres e-mail</a></th>
                 </tr>
                 <tr>
-                    <th id="profile_delete"><a href="" class="profile_settings" id="profile_delete">Usuń konto</a></th>
+                    <th><a href="/profile/change-image" class="profile_settings">Zmień zdjęcie</a></th>
+                </tr>
+                <tr>
+                    <th id="profile_delete"><a href="/profile/delete-account" class="profile_settings" id="profile_delete">Usuń konto</a></th>
                 </tr>
                 </tbody>
             </table>

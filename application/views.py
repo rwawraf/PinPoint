@@ -95,6 +95,12 @@ def users():
     return render_template("users/users.html", user=current_user, users=user_list, relations=relations)
 
 
+@views.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    return render_template("profile/profile.html", user=current_user)
+
+
 @views.route('/_get_participants/<room_id>', methods=['GET', 'POST'])
 def get_participants_name(room_id):
     participants = Participant.query.filter_by(room_id=room_id).all()
@@ -107,6 +113,10 @@ def get_participants_name(room_id):
 
     return jsonify(users)
 
+@views.route('/_get_users', methods=['GET', 'POST'])
+def get_users():
+    all_users = User.query.all()
+    user_list = []
 
 @views.route('/_get_users', methods=['GET', 'POST'])
 def get_users():
