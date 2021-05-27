@@ -41,7 +41,7 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Message" aria-label="Message" id="msg">
                     <div class="input-group-append">
-                        <button class="btn btn-success" type="button" id="sendBtn">Send</button>
+                        <button class="btn btn-success" type="submit" id="sendBtn">Send</button>
                     </div>
                 </div>
             </form>
@@ -127,9 +127,9 @@
     function leaveRoom(){
         socket.emit('updateUsers', { room_id: {{ room_id }} });
         socket.emit('event', {message: '', name: '{{ user.username }}', type: 3, room_id: {{ room_id }} });
-        setTimeout(function (){
+        setInterval(function (){
             window.location.href = "/chatroom/{{ room_id }}/leave";
-        }, 100);
+        }, 1000);
     }
 
 

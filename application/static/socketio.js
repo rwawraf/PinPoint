@@ -8,27 +8,28 @@ socket.on("connect", async function () {
             connect: true,
         });
     }
-    var form = $("form#sendBtn").on("click", async function (e) {
-        e.preventDefault();
+});
 
-        // get input from message box
-        let msg_input = document.getElementById("msg");
-        let user_input = msg_input.value;
-        let user_name = await loadName();
-        let picture = await loadPicture();
-        let room_id = await loadRoom();
+var form = $("#sendBtn").on("submit", async function (e) {
+    e.preventDefault();
 
-        // clear msg box value
-        msg_input.value = "";
+    // get input from message box
+    let msg_input = document.getElementById("msg");
+    let user_input = msg_input.value;
+    let user_name = await loadName();
+    let picture = await loadPicture();
+    let room_id = await loadRoom();
 
-        // send message to other users
-        socket.emit("event", {
-            message: user_input,
-            name: user_name,
-            picture: picture,
-            type: 1,
-            room_id: room_id
-        });
+    // clear msg box value
+    msg_input.value = "";
+
+    // send message to other users
+    socket.emit("event", {
+        message: user_input,
+        name: user_name,
+        picture: picture,
+        type: 1,
+        room_id: room_id
     });
 });
 
