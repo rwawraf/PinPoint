@@ -1,4 +1,4 @@
-let socket = io.connect('http://' + document.domain + ':' + location.port);
+let socket = io.connect(window.location.protocol + '//' + document.domain + ':' + location.port);
 
 socket.on("connect", async function () {
     var usr_name = await loadName();
