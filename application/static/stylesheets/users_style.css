@@ -1,21 +1,51 @@
-#users{
-    padding: 10px;
-}
-
-#users table{
-    background: #F8A100;
-    padding: 10px;
-}
-
-#users tbody tr{
-    margin: 10px;
-    background: #FFDB99;
-}
-
-#users thead{
+#users_cont{
     text-align: center;
+    padding-top: 30px;
 }
 
-#users td{
-    padding: 10px;
+#users_table {
+	width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 280px;
+}
+#users_table thead tr{
+    background-color: var(--secondary-color);
+    text-align: left;
+    font-size: 1.0em;
+}
+#users_table th,
+#users_table td{
+    padding: 12px 15px;
+	text-align: center;
+	vertical-align: bottom;
+}
+#users_table tbody tr{
+	font-weight: bold;
+}
+
+.user_btn{
+    background-color: #fea82f;
+    font: 400 13.3333px Arial;
+    padding: .375rem .75rem;
+    font-size: 0.7rem;
+    border-radius: .25rem;
+    border: none;
+    width: auto;
+    color: var(--font-color);
+}
+
+.header_button{
+    background-color: #fea82f;
+    font: 400 13.3333px Arial;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    border: none;
+    width: auto;
+    color: var(--font-color);
+    right: 30px;
+    position: absolute;
+    margin-top: 10px;
 }

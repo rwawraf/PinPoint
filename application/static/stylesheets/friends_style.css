@@ -1,21 +1,81 @@
 #friends{
-    padding: 10px;
+    width: 100%;
 }
 
 #friends table{
-    background: #F8A100;
-    padding: 10px;
+	width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 280px;
 }
-
-#friends tbody tr{
-    margin: 10px;
-    background: #FFDB99;
+#friends thead tr{
+    background-color: var(--secondary-color);
+    text-align: left;
+    font-size: 1.0em;
 }
-
-#friends thead{
-    text-align: center;
-}
-
+#friends th,
 #friends td{
-    padding: 10px;
+    padding: 12px 15px;
+	text-align: center;
+	vertical-align: bottom;
+}
+#friends tbody tr{
+	font-weight: bold;
+}
+.header_button{
+    float: right;
+    margin: 10px;
+    padding: 7px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--font-color);
+    font-size: 18px;
+}
+
+#pending_invites{
+    position: absolute;
+    margin-top: 70px;
+    width: 40%;
+    text-align: center;
+    float: left;
+    left: 0;
+}
+
+#accepted_invites{
+    position: absolute;
+    margin-top: 70px;
+    width: 60%;
+    text-align: center;
+    float: left;
+    right: 0;
+}
+
+#pending_invites_table{
+    width: 100%;
+}
+
+#accepted_invites_table{
+    width: 100%
+}
+
+.friend_btn{
+    background-color: #fea82f;
+    font: 400 13.3333px Arial;
+    padding: .375rem .75rem;
+    font-size: 0.7rem;
+    border-radius: .25rem;
+    border: none;
+    width: auto;
+    color: var(--font-color);
+}
+
+#line{
+    background-color: var(--primary-color);
+    width: 0.5%;
+    height: 100%;
+    position: absolute;
+    left: 39.75%;
+    z-index: 3;
 }

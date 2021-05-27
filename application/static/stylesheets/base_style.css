@@ -18,8 +18,8 @@ html{
 	--banner-color: url('http://127.0.0.1:5000/static/images/dark_banner.png');
 }
 body{
-	background-color: var(--primary-color);
-	color:  var(--font-color);
+	background-color: var(--primary-color) !important;
+	color:  var(--font-color) !important;
 	margin: 0;
 	width: 100%;
 	height: 100%;
@@ -84,10 +84,11 @@ body{
 	padding: 16px 32px;
 	text-align: center;
 	float: right;
-	background-color: transparent;
-	border: none;
+	background-color: transparent !important;
+	border: none !important;
 	color: var(--font-color) !important;
 	font-size: 20px;
+	transition-duration: 0s !important;
 }
 
 .btn-menu{
@@ -96,9 +97,9 @@ body{
 }
 
 .btn:hover{
-	transition-duration: 0.4s;
+	transition-duration: 0.4s !important;
 	cursor: pointer;
-	background-color: var(--secondary-color) !important;
+	background-color: var(--primary-color) !important;
 }
 .l {
 	position: absolute;
@@ -173,14 +174,14 @@ body{
 	color: var(--font-color) !important;
 	margin: 150px 10px 10px 0px;
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1300px) {
 	.menu a {display: none;}
 	a.icon {
 		float: right;
 		display: block;
 	}
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1300px) {
 	.menu.responsive {
 		position: absolute;
 		top: 200px;

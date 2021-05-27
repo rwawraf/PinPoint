@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block styles %}
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/friends_style.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/friends_style.css') }}"/>
 {% endblock %}
 
 {% block title %}Znajomi{% endblock %}
@@ -9,69 +9,70 @@
 {% block content %}
     <a id="blacklist" href="/black-list"><button class="header_button">Zablokowani użytkownicy</button></a>
     <a id="users" href="/users"><button class="header_button">Wszyscy użytkownicy</button></a>
+    <div id="line"></div>
     <div id="friends">
-                <div id="pending_invites">
-                    <h5>Pending invites:</h5>
-                    <table>
-                        <thead>
-                        <tr>
-                            <td>Nazwa użytkownika</td>
-                            <td>Akcja</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for UserRelation in all_relations %}
-                            {% if UserRelation.related_user_id == current_user.user_id  %}
-                                {% if UserRelation.status == 0 %}
-                                    <tr>
-                                    <td>{{ UserRelation.relating_user.username }}</td>
-                                    <td>
-                                        <button type="button" onclick="acceptUser({{ UserRelation.user_relation_id }})">
-                                            Akceptuj
-                                        </button>
-                                        <button type="button" onclick="declineUser({{ UserRelation.user_relation_id }})">
-                                            Odrzuć
-                                        </button>
-                                        <button type="button" onclick="blockUser({{ UserRelation.user_relation_id }})">
-                                            Zablokuj
-                                        </button>
-                                    </td>
-                                    </tr>
-                                {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                        </tbody>
-                    </table>
-
-
-                </div>
-                <div>
-                    <h5>Friends:</h5>
-                <table>
-                    <thead>
-                    <tr>
-                        <td>Nazwa użytkownika</td>
-                        <td>Akcja</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for UserRelation in all_relations %}
-                        {% if UserRelation.related_user_id == current_user.user_id or UserRelation.relating_user_id == current_user.user_id %}
-                            {% if UserRelation.status == 1 %}
-                                <tr>
+        <div id="pending_invites">
+            <h5>Zaproszenia oczekujące</h5>
+            <table id="pending_invites_table">
+                <thead>
+                <tr>
+                    <td>Nazwa użytkownika</td>
+                    <td>Akcja</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for UserRelation in all_relations %}
+                    {% if UserRelation.related_user_id == current_user.user_id  %}
+                        {% if UserRelation.status == 0 %}
+                            <tr>
                                 <td>{{ UserRelation.relating_user.username }}</td>
                                 <td>
-                                    <button type="button" onclick="removeFriend({{ UserRelation.user_relation_id }})">
+                                    <button class="friend_btn" type="button" onclick="acceptUser({{ UserRelation.user_relation_id }})">
+                                        Akceptuj
+                                    </button>
+                                    <button class="friend_btn" type="button" onclick="declineUser({{ UserRelation.user_relation_id }})">
+                                        Odrzuć
+                                    </button>
+                                    <button class="friend_btn" type="button" onclick="blockUser({{ UserRelation.user_relation_id }})">
+                                        Zablokuj
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+
+        </div>
+        <div id="accepted_invites">
+            <h5>Znajomi</h5>
+            <table id="accepted_invites_table">
+                <thead>
+                <tr>
+                    <td>Nazwa użytkownika</td>
+                    <td>Akcja</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for UserRelation in all_relations %}
+                    {% if UserRelation.related_user_id == current_user.user_id or UserRelation.relating_user_id == current_user.user_id %}
+                        {% if UserRelation.status == 1 %}
+                            <tr>
+                                <td>{{ UserRelation.relating_user.username }}</td>
+                                <td>
+                                    <button class="friend_btn" type="button" onclick="removeFriend({{ UserRelation.user_relation_id }})">
                                         Usuń ze znajomych
                                     </button>
                                 </td>
-                                </tr>
-                            {% endif %}
+                            </tr>
                         {% endif %}
-                    {% endfor %}
-                    </tbody>
-                </table>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
 
-                </div>
+        </div>
     </div>
 {% endblock %}

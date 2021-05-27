@@ -8,10 +8,11 @@
 {% endblock %}
 
 {% block content %}
+    <a id="friends" href="/friends"><button class="header_button">Powrót</button></a>
     <div id="users_cont">
                 <div id="users">
-                    <h5>Wszyscy użytkownicy:</h5>
-                    <table>
+                    <h5>Wszyscy użytkownicy</h5>
+                    <table id="users_table">
                         <thead>
                         <tr>
                             <td>Nazwa użytkownika</td>
@@ -33,13 +34,13 @@
                                                 {% if Relation.action_user_id != current_user.user_id %}
                                                     Wysłałeś prośbę o dodanie do znajomych
                                                 {% else %}
-                                                    <button type="button" onclick="acceptUser({{ Relation.user_relation_id }})">
+                                                    <button class="user_btn" type="button" onclick="acceptUser({{ Relation.user_relation_id }})">
                                                         Akceptuj
                                                     </button>
-                                                    <button type="button" onclick="declineUser({{ Relation.user_relation_id }})">
+                                                    <button class="user_btn" type="button" onclick="declineUser({{ Relation.user_relation_id }})">
                                                         Odrzuć
                                                     </button>
-                                                    <button type="button" onclick="blockUser({{ Relation.user_relation_id }})">
+                                                    <button class="user_btn" type="button" onclick="blockUser({{ Relation.user_relation_id }})">
                                                         Zablokuj
                                                     </button>
                                                 {% endif %}
@@ -55,13 +56,13 @@
                                                 {% if Relation.action_user_id != current_user.user_id %}
                                                     Wysłałeś prośbę o dodanie do znajomych
                                                 {% else %}
-                                                    <button type="button" onclick="acceptUser({{ Relation.user_relation_id }})">
+                                                    <button class="user_btn" type="button" onclick="acceptUser({{ Relation.user_relation_id }})">
                                                         Akceptuj
                                                     </button>
-                                                    <button type="button" onclick="declineUser({{ Relation.user_relation_id }})">
+                                                    <button class="user_btn" type="button" onclick="declineUser({{ Relation.user_relation_id }})">
                                                         Odrzuć
                                                     </button>
-                                                    <button type="button" onclick="blockUser({{ Relation.user_relation_id }})">
+                                                    <button class="user_btn" type="button" onclick="blockUser({{ Relation.user_relation_id }})">
                                                         Zablokuj
                                                     </button>
                                                 {% endif %}
@@ -75,7 +76,7 @@
                                     {% endfor %}
                                     {% if notFound.value %}
 
-                                            <button type="button" onclick="addUser({{ User.user_id }})">
+                                            <button class="user_btn" type="button" onclick="addUser({{ User.user_id }})">
                                                 Dodaj do znajomych
                                             </button>
 

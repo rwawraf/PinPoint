@@ -66,10 +66,10 @@ textarea
     position: relative;
     top: 50px;
     left: 30%;
-    height: 450px;
+    height: 480px;
     width: 40%;
     border-radius: 10px;
-    font-size: 20px;
+    font-size: 18px;
     padding: 5px;
 }
 
@@ -135,11 +135,12 @@ button[type=submit]{
     background: linear-gradient(#ddd 0, #eee 100%);
     border: 1px solid #ccc;
     line-height: 32px;
-    font-size: 22px;
+    font-size: 18px;
     padding: 0 25px;
     border-radius: 3px;
     width: 40%;
     height: 50px;
+    min-width: 170px;
 }
 #email,#username,#password1,#password2{
     width: 60%;

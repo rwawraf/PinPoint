@@ -38,7 +38,11 @@
                         id="password1"
                         name="password1"
                         placeholder="Podaj hasło"
+                        onkeyup="return passwordStrength();"
                 />
+            </div>
+            <div class="progress">
+                <div id="progress-bar" class="progress-bar" role="progressbar"></div>
             </div>
             <div>
                 <label for="password2">Powtórz hasło</label>
@@ -48,11 +52,12 @@
                         id="password2"
                         name="password2"
                         placeholder="Powtórz hasło"
+                        onkeyup="return secondPasswordCheck();"
                 />
             </div>
             <br />
-            <button type="submit">Zarejestruj się!</button><br><br>
-            <a href="/sign-up">Jeżeli należysz do społeczności PinPoint - zaloguj się już teraz!</a>
+            <button type="submit">Zarejestruj się!</button><br>
+            <a href="/login">Jeżeli należysz do społeczności PinPoint - zaloguj się już teraz!</a>
         </form>
     </div>
 

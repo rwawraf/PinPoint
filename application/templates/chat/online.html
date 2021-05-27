@@ -1,5 +1,8 @@
-Who else is online now
-<ul>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/online_style.css') }}"/>
+
+<p>Użytkownicy online</p>
+<ul id="users_list">
     {% for key,val in online_users.items() %}
         {% if val %}
             {% if val != current_user %}

@@ -235,6 +235,18 @@ def get_all_messages(user_id=None, room_id=None, limit=100, to_json=False):
     else:
         all_messages = Message.query.filter_by(user_id=user_id, room_id=room_id).limit(limit).all()
 
+    # for message in all_messages:
+    #     if not message.content:
+    #         all_messages.remove(message)
+
+    # usuwanie pustych wiadomosci
+    i = 0
+    while i < len(all_messages):
+        if not all_messages[i].content:
+            del all_messages[i]
+            i -= 1
+        i += 1
+
     if to_json:
         all_messages_asdict = []
 
