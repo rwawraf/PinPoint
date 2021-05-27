@@ -39,4 +39,4 @@ def update_users(json):
 
 # MAINLINE
 if __name__ == "__main__":  # start the web server
-    socketio.run(app, debug=True, host=str(config.Config.SERVER))
+    socketio.run(app, debug=True, host=str(config.Config.SERVER), keyfile='key.pem', certfile='cert.pem')
