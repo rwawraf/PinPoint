@@ -24,6 +24,19 @@
     padding: 10px;
 }
 
+.exit_btn{
+    background-color: #FF5252;
+    font: 400 13.3333px Arial;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    position: absolute;
+    right: 10px;
+    border: none;
+    width: 8%;
+    color: var(--font-color);
+}
+
 #invite-users-container{
     max-height: 100%;
 }
@@ -47,9 +60,66 @@
     padding: 5px;
 }
 
+hr{
+    background-color: #dedede;
+}
+
+.user_joined{
+    color: var(--font-color);
+}
+
+.messages{
+    background-color: var(--primary-color);
+}
+
+#send_btn{
+    background-color: #fea82f !important;
+}
+
+.refresh_btn{
+    background-color: #8ab6d6;
+    font: 400 13.3333px Arial;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    position: absolute;
+    right: 10px;
+    border: none;
+    width: 8%;
+    color: var(--font-color);
+    position:absolute;
+    top: 600px;
+}
+.row{
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+    }
+
+.container b.right{
+    float: left;
+    margin-left: 0px;
+    margin-top: 3px;
+}
+
+.container b{
+    color: var(--font-color) !important;
+}
+
+.time-left{
+    float: right;
+}
+
 @media screen and (max-width: 800px) {
     #chat-container{
         grid-template-columns: 1fr;
         grid-template-rows: auto fit-content(350px) fit-content(350px);
     }
+}
+
+#chat-window{
+    background-color: var(--primary-color);
+}
+
+.container{
+    background-color: var(--primary-color);
 }

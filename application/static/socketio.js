@@ -10,7 +10,7 @@ socket.on("connect", async function () {
     }
 });
 
-var form = $("#sendBtn").on("submit", async function (e) {
+var form = $("button#sendBtn").on("click", async function (e) {
     e.preventDefault();
 
     // get input from message box
