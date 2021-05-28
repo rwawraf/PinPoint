@@ -18,7 +18,7 @@ class RolesUsers(db.Model):
     __tablename__ = "roles_and_users"
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
-    role_id = db.Column(db.Integer(), db.ForeignKey('role.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
 
     users = db.relationship('User')
     roles = db.relationship('Role')
@@ -26,7 +26,7 @@ class RolesUsers(db.Model):
 
 class Role(db.Model, RoleMixin):
     __tablename__ = "role"
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
 

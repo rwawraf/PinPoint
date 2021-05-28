@@ -32,7 +32,7 @@ def currently_online_users():
 
 @auth.route('/online-users')
 def online_users_list():
-    return render_template("chat/online.html")
+    return render_template("chat/online.html", user=current_user)
 
 
 # zdefiniowanie trzech nowych ścieżek/podstron dla logowania

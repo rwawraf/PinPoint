@@ -91,11 +91,6 @@ body{
 	transition-duration: 0s !important;
 }
 
-.btn-menu{
-	background-color: var(--primary-color) !important;
-	color:  var(--font-color) !important;
-}
-
 .btn:hover{
 	transition-duration: 0.4s !important;
 	cursor: pointer;

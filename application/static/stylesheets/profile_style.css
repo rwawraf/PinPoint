@@ -45,9 +45,53 @@
 }
 .profile_settings{
     text-decoration: none;
-    color: blue;
+    color: rgb(254,126,0);
 }
+
+.profile_settings:hover{
+    text-decoration: none;
+    color: rgb(254,126,0);
+}
+
 #profile_delete{
     padding: 70px;
     color: red;
+}
+
+.container{
+    background-color: var(--secondary-color) !important;
+    color: var(--font-color) !important;
+    border: none;
+    width: 40% !important;
+    text-align: center;
+    min-width: 300px;
+}
+
+.back{
+    text-align: right !important;
+}
+
+.back a{
+    color: rgb(254,126,0) !important;
+    text-decoration: none !important;
+}
+
+button[type=submit]{
+    cursor: pointer;
+    background: #ccc;
+    background: linear-gradient(#ddd 0, #eee 100%);
+    border: 1px solid #ccc;
+    line-height: 32px;
+    font-size: 18px;
+    padding: 0 25px;
+    border-radius: 3px;
+    width: 40%;
+    height: 50px;
+    min-width: 150px;
+    margin-right: 30%;
+    color: black !important;
+}
+
+input[type=file]{
+    margin-left: 17%;
 }

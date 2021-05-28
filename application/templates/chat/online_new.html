@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+
+{% block title %}Users{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/users_style.css') }}"/>
+{% endblock %}
+
+{% block content %}
+    <a id="friends" href="/friends"><button class="header_button">Powrót</button></a>
+    <div id="users_cont">
+        <div id="users">
+            <h5>Wszyscy użytkownicy</h5>
+            <table id="users_table">
+                <thead>
+                <tr>
+                    <td>Nazwa użytkownika</td>
+                    <td>Akcja</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for User in users %}
+                    {% if User.user_id != current_user.user_id %}
+                        <tr>
+                            <td> {{ User.username }}</td>
+                            <td>
+                                {% set notFound = {'value': True} %}
+                                {% for Relation in relations %}
+                                    {% if Relation.relating_user_id == User.user_id and Relation.related_user_id == current_user.user_id %}
+
+                                        {% if Relation.status == 0 %}
+                                            {%if notFound.update({'value' : False}) %}{% endif %}
+                                            {% if Relation.action_user_id != current_user.user_id %}
+                                                Wysłałeś prośbę o dodanie do znajomych
+                                            {% else %}
+                                                <button class="user_btn" type="button" onclick="acceptUser({{ Relation.user_relation_id }})">
+                                                    Akceptuj
+                                                </button>
+                                                <button class="user_btn" type="button" onclick="declineUser({{ Relation.user_relation_id }})">
+                                                    Odrzuć
+                                                </button>
+                                                <button class="user_btn" type="button" onclick="blockUser({{ Relation.user_relation_id }})">
+                                                    Zablokuj
+                                                </button>
+                                            {% endif %}
+                                        {% elif Relation.status == 1 %}
+                                            {%if notFound.update({'value' : False}) %}{% endif %}
+                                            Jesteście już znajomymi
+                                        {% endif %}
+
+                                    {% elif Relation.related_user_id == User.user_id and Relation.relating_user_id == current_user.user_id %}
+
+                                        {% if Relation.status == 0 %}
+                                            {%if notFound.update({'value' : False}) %}{% endif %}
+                                            {% if Relation.action_user_id != current_user.user_id %}
+                                                Wysłałeś prośbę o dodanie do znajomych
+                                            {% else %}
+                                                <button class="user_btn" type="button" onclick="acceptUser({{ Relation.user_relation_id }})">
+                                                    Akceptuj
+                                                </button>
+                                                <button class="user_btn" type="button" onclick="declineUser({{ Relation.user_relation_id }})">
+                                                    Odrzuć
+                                                </button>
+                                                <button class="user_btn" type="button" onclick="blockUser({{ Relation.user_relation_id }})">
+                                                    Zablokuj
+                                                </button>
+                                            {% endif %}
+                                        {% elif Relation.status == 1 %}
+                                            {%if notFound.update({'value' : False}) %}{% endif %}
+                                            Jesteście już znajomymi
+                                        {% endif %}
+
+                                    {% endif %}
+
+                                {% endfor %}
+                                {% if notFound.value %}
+
+                                    <button class="user_btn" type="button" onclick="addUser({{ User.user_id }})">
+                                        Dodaj do znajomych
+                                    </button>
+
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
